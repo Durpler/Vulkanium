@@ -201,7 +201,7 @@ glslc.exe Shader\simple_shader.frag -o $(TargetDir)Shader\simple_shader.frag.spv
     <ClCompile Include="VulkaniumWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="VulkaniumDevice.hpp" />
+    <ClInclude Include="VulkaniumDevice.h" />
     <ClInclude Include="VulkaniumPipeline.h" />
     <ClInclude Include="VulkaniumWindow.h" />
   </ItemGroup>

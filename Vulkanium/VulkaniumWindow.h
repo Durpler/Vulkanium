@@ -17,20 +17,20 @@ namespace vulkanium
 		VulkaniumWindow(const VulkaniumWindow& other) = delete; 
 		VulkaniumWindow& operator=(const VulkaniumWindow& other) = delete; 
 
-		bool ShouldClose(); 
-		void CreateWindowSurface(VkInstance instance, VkSurfaceKHR* surface); 
+		bool shouldClose(); 
+		void createWindowSurface(VkInstance instance, VkSurfaceKHR* surface); 
 
 	private:
 
-		void InitWindow(); 
+		void initWindow(); 
 
-		const int nWidth; 
-		const int nHeight; 
+		const int m_nWidth; 
+		const int m_nHeight; 
 
 		// reference to the actual window 
-		GLFWwindow* window; 
+		GLFWwindow* m_Window; 
 
-		std::string sWindowTitle; 
+		std::string m_sWindowTitle; 
 
 	};
 }

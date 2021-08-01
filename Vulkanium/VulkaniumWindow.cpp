@@ -2,36 +2,36 @@
 #include <stdexcept>
 
 vulkanium::VulkaniumWindow::VulkaniumWindow(int width, int height, std::string name) :
-	nWidth(width),
-	nHeight(height),
-	sWindowTitle(name)
+	m_nWidth(width),
+	m_nHeight(height),
+	m_sWindowTitle(name)
 {
 	glfwInit(); 
 	glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API); 
 	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
-	window = glfwCreateWindow(nWidth, nHeight, sWindowTitle.c_str(), nullptr, nullptr);
+	m_Window = glfwCreateWindow(m_nWidth, m_nHeight, m_sWindowTitle.c_str(), nullptr, nullptr);
 }
 
 vulkanium::VulkaniumWindow::~VulkaniumWindow()
 {
-	glfwDestroyWindow(window);
+	glfwDestroyWindow(m_Window);
 	glfwTerminate(); 
 }
 
-bool vulkanium::VulkaniumWindow::ShouldClose()
+bool vulkanium::VulkaniumWindow::shouldClose()
 {
-	return glfwWindowShouldClose(window); 
+	return glfwWindowShouldClose(m_Window); 
 }
 
-void vulkanium::VulkaniumWindow::CreateWindowSurface(VkInstance instance, VkSurfaceKHR* surface)
+void vulkanium::VulkaniumWindow::createWindowSurface(VkInstance instance, VkSurfaceKHR* surface)
 {
-	if (glfwCreateWindowSurface(instance, window, nullptr, surface) != VK_SUCCESS)
+	if (glfwCreateWindowSurface(instance, m_Window, nullptr, surface) != VK_SUCCESS)
 	{
 		throw std::runtime_error("failed to create window surface");
 	}
 }
 
-void vulkanium::VulkaniumWindow::InitWindow()
+void vulkanium::VulkaniumWindow::initWindow()
 {
 }

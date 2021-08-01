@@ -35,7 +35,7 @@
     <ClInclude Include="VulkaniumPipeline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VulkaniumDevice.hpp">
+    <ClInclude Include="VulkaniumDevice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
