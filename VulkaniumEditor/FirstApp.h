@@ -4,6 +4,10 @@
 #include "VulkaniumWindow.h"
 #include "VulkaniumPipeline.h"
 #include "VulkaniumDevice.h"
+#include "VulkaniumSwapChain.h"
+
+//std
+#include <memory>
 
 using namespace vulkanium; 
 
@@ -13,16 +17,28 @@ public:
 	static constexpr int WIDTH = 1280; 
 	static constexpr int HEIGHT = 720; 
 
+	FirstApp(); 
+	~FirstApp();
+
+	FirstApp(const FirstApp& other) = delete; 
+	FirstApp& operator=(const FirstApp& other) = delete; 
+
 	void run(); 
 
 private:
-	VulkaniumWindow vkaniumWindow{ WIDTH,HEIGHT,"Hello Vulkan!" }; 
-	VulkaniumDevice vkaniumDevice{ vkaniumWindow }; 
-	VulkaniumPipeline vkaniumPipeline{
-		vkaniumDevice,
-		"Shader\\simple_shader.vert.spv", 
-		"Shader\\simple_shader.frag.spv" ,
-		VulkaniumPipeline::defaulPipelineConfigInfo(WIDTH,HEIGHT)};
+
+	void createPipelineLayout();
+	void createPipeline(); 
+	void createCommandBuffers(); 
+	void drawFrame();
+
+	VulkaniumWindow m_vkaniumWindow{ WIDTH,HEIGHT,"Hello Vulkan!" }; 
+	VulkaniumDevice m_vkaniumDevice{ m_vkaniumWindow }; 
+	VulkaniumSwapChain m_vkaniumSwapChain{m_vkaniumDevice, m_vkaniumWindow.getExtent()};
+	
+	std::unique_ptr<VulkaniumPipeline> m_vkaniumPipeline;
+	VkPipelineLayout m_pipelineLayout; 
+	std::vector<VkCommandBuffer> m_commandBuffers; 
 };
 
 

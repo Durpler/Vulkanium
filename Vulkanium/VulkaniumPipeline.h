@@ -11,6 +11,10 @@ namespace vulkanium
 	// defines how this pipeline will make use of the graphics pipeline
 	struct PipelineConfigInfo 
 	{
+
+		PipelineConfigInfo(const PipelineConfigInfo&) = delete;
+		PipelineConfigInfo& operator=(const PipelineConfigInfo&) = delete;
+
 		VkViewport viewport; 
 		VkRect2D scissor; 
 		VkPipelineViewportStateCreateInfo viewportInfo;
@@ -39,7 +43,9 @@ namespace vulkanium
 		VulkaniumPipeline(const VulkaniumPipeline& other) = delete; 
 		void operator=(const VulkaniumPipeline& other) = delete; 
 
-		static PipelineConfigInfo defaulPipelineConfigInfo(uint32_t width, uint32_t height);
+		static void defaulPipelineConfigInfo(PipelineConfigInfo& configInfo,uint32_t width, uint32_t height);
+
+		void bind(VkCommandBuffer commandBuffer);
 
 	private:
 		static std::vector<char> ReadFile(const std::string& filepath);

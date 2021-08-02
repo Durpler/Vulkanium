@@ -26,10 +26,10 @@ namespace vulkanium
 	}
 	
 	
-	PipelineConfigInfo VulkaniumPipeline::defaulPipelineConfigInfo(uint32_t width, uint32_t height)
+	void VulkaniumPipeline::defaulPipelineConfigInfo(PipelineConfigInfo& configInfo, uint32_t width, uint32_t height)
 	{
 		
-		PipelineConfigInfo configInfo{};
+		//PipelineConfigInfo configInfo{};
 		// define input assembly -> defines how the input data is going to be assambled to be dispalyed
 		configInfo.inputAssemblyInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
 		configInfo.inputAssemblyInfo.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
@@ -47,11 +47,11 @@ namespace vulkanium
 		configInfo.scissor.offset = { 0,0 };
 		configInfo.scissor.extent = { width, height};
 
-		// combine them into create state info
+		//
 		configInfo.viewportInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
-		configInfo.viewportInfo.viewportCount = 1; 
-		configInfo.viewportInfo.pViewports = &configInfo.viewport; 
-		configInfo.viewportInfo.scissorCount = 1; 
+		configInfo.viewportInfo.viewportCount = 1;
+		configInfo.viewportInfo.pViewports = &configInfo.viewport;
+		configInfo.viewportInfo.scissorCount = 1;
 		configInfo.viewportInfo.pScissors = &configInfo.scissor;
 
 		//rastarization stage setup
@@ -111,8 +111,11 @@ namespace vulkanium
 		configInfo.depthStencilInfo.stencilTestEnable = VK_FALSE;
 		configInfo.depthStencilInfo.front = {}; 
 		configInfo.depthStencilInfo.back = {};
+	}
 
-		return configInfo; 
+	void VulkaniumPipeline::bind(VkCommandBuffer commandBuffer)
+	{
+		vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline);
 	}
 
 	std::vector<char> VulkaniumPipeline::ReadFile(const std::string& filepath)
@@ -179,6 +182,7 @@ namespace vulkanium
 		vertexInputInfo.vertexBindingDescriptionCount = 0; 
 		vertexInputInfo.pVertexAttributeDescriptions = nullptr; 
 		vertexInputInfo.pVertexBindingDescriptions = nullptr; 
+
 
 
 		// create actual graphics pipeline

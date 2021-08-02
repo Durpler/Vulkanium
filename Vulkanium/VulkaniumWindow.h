@@ -20,6 +20,8 @@ namespace vulkanium
 		bool shouldClose(); 
 		void createWindowSurface(VkInstance instance, VkSurfaceKHR* surface); 
 
+		VkExtent2D getExtent() { return { static_cast<uint32_t>(m_nWidth),static_cast<uint32_t>(m_nHeight) }; }
+
 	private:
 
 		void initWindow(); 
