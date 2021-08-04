@@ -15,8 +15,8 @@ using namespace vulkanium;
 class FirstApp
 {
 public: 
-	static constexpr int WIDTH = 1280; 
-	static constexpr int HEIGHT = 720; 
+	static constexpr int WIDTH = 1024; 
+	static constexpr int HEIGHT = 768; 
 
 	FirstApp(); 
 	~FirstApp();
