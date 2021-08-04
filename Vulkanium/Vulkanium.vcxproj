@@ -83,8 +83,7 @@
     <ExecutablePath>$(VULKAN_SDK)\Bin;$(ExecutablePath)</ExecutablePath>
     <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
     <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
-    <CustomBuildBeforeTargets>
-    </CustomBuildBeforeTargets>
+    <CustomBuildBeforeTargets>Run</CustomBuildBeforeTargets>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -93,8 +92,7 @@
     <ExecutablePath>$(VULKAN_SDK)\Bin;$(ExecutablePath)</ExecutablePath>
     <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
     <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
-    <CustomBuildBeforeTargets>
-    </CustomBuildBeforeTargets>
+    <CustomBuildBeforeTargets>Run</CustomBuildBeforeTargets>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -151,8 +149,9 @@ glslc.exe Shader\simple_shader.frag -o $(TargetDir)Shader\simple_shader.frag.spv
       </Command>
     </PostBuildEvent>
     <CustomBuildStep>
-      <Command>
-      </Command>
+      <Command>mkdir $(TargetDir)Shader
+glslc.exe Shader\simple_shader.vert -o $(TargetDir)Shader\simple_shader.vert.spv
+glslc.exe Shader\simple_shader.frag -o $(TargetDir)Shader\simple_shader.frag.spv</Command>
     </CustomBuildStep>
     <CustomBuildStep>
       <TreatOutputAsContent>false</TreatOutputAsContent>
@@ -188,8 +187,9 @@ glslc.exe Shader\simple_shader.frag -o $(TargetDir)Shader\simple_shader.frag.spv
       </Command>
     </PostBuildEvent>
     <CustomBuildStep>
-      <Command>
-      </Command>
+      <Command>mkdir $(TargetDir)Shader
+glslc.exe Shader\simple_shader.vert -o $(TargetDir)Shader\simple_shader.vert.spv
+glslc.exe Shader\simple_shader.frag -o $(TargetDir)Shader\simple_shader.frag.spv</Command>
     </CustomBuildStep>
     <CustomBuildStep>
       <TreatOutputAsContent>false</TreatOutputAsContent>
@@ -197,11 +197,13 @@ glslc.exe Shader\simple_shader.frag -o $(TargetDir)Shader\simple_shader.frag.spv
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="VulkaniumDevice.cpp" />
+    <ClCompile Include="VulkaniumModel.cpp" />
     <ClCompile Include="VulkaniumPipeline.cpp" />
     <ClCompile Include="VulkaniumSwapChain.cpp" />
     <ClCompile Include="VulkaniumWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="VulkaniumModel.h" />
     <ClInclude Include="VulkaniumDevice.h" />
     <ClInclude Include="VulkaniumPipeline.h" />
     <ClInclude Include="VulkaniumSwapChain.h" />

@@ -11,7 +11,7 @@ namespace vulkanium
 	// defines how this pipeline will make use of the graphics pipeline
 	struct PipelineConfigInfo 
 	{
-
+		PipelineConfigInfo() = default; 
 		PipelineConfigInfo(const PipelineConfigInfo&) = delete;
 		PipelineConfigInfo& operator=(const PipelineConfigInfo&) = delete;
 
@@ -50,9 +50,9 @@ namespace vulkanium
 	private:
 		static std::vector<char> ReadFile(const std::string& filepath);
 
-		void CreateGraphicsPipeline(const std::string& vertFilepath, const std::string& fragFilepath, const PipelineConfigInfo& configInfo);
+		void createGraphicsPipeline(const std::string& vertFilepath, const std::string& fragFilepath, const PipelineConfigInfo& configInfo);
 
-		void CreateShaderModule(const std::vector<char>& code, VkShaderModule* shaderModule);
+		void createShaderModule(const std::vector<char>& code, VkShaderModule* shaderModule);
 
 		VulkaniumDevice& vkaniumDevice; 
 		VkPipeline graphicsPipeline; 

@@ -5,6 +5,7 @@
 #include "VulkaniumPipeline.h"
 #include "VulkaniumDevice.h"
 #include "VulkaniumSwapChain.h"
+#include "VulkaniumModel.h"
 
 //std
 #include <memory>
@@ -26,7 +27,7 @@ public:
 	void run(); 
 
 private:
-
+	void loadModels(); 
 	void createPipelineLayout();
 	void createPipeline(); 
 	void createCommandBuffers(); 
@@ -39,6 +40,8 @@ private:
 	std::unique_ptr<VulkaniumPipeline> m_vkaniumPipeline;
 	VkPipelineLayout m_pipelineLayout; 
 	std::vector<VkCommandBuffer> m_commandBuffers; 
+
+	std::unique_ptr<VulkaniumModel> m_vkaModel; 
 };
 
 

@@ -30,6 +30,9 @@
     <ClCompile Include="VulkaniumSwapChain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VulkaniumModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VulkaniumWindow.h">
@@ -42,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="VulkaniumSwapChain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkaniumModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

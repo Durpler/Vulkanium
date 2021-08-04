@@ -1,10 +1,11 @@
 #include "VulkaniumPipeline.h"
-
+#include "VulkaniumModel.h"
 //std
 #include <fstream>
 #include <stdexcept>
 #include <iostream>
 #include <cassert>
+
 namespace vulkanium
 {
 	VulkaniumPipeline::VulkaniumPipeline(
@@ -14,7 +15,7 @@ namespace vulkanium
 		const PipelineConfigInfo& configInfo)
 		: vkaniumDevice(device)
 	{
-		CreateGraphicsPipeline(vertFilepath, fragFilepath, configInfo);
+		createGraphicsPipeline(vertFilepath, fragFilepath, configInfo);
 	}
 
 	VulkaniumPipeline::~VulkaniumPipeline()
@@ -139,7 +140,7 @@ namespace vulkanium
 	}
 
 
-	void VulkaniumPipeline::CreateGraphicsPipeline(const std::string& vertFilepath, const std::string& fragFilepath, const PipelineConfigInfo& configInfo)
+	void VulkaniumPipeline::createGraphicsPipeline(const std::string& vertFilepath, const std::string& fragFilepath, const PipelineConfigInfo& configInfo)
 	{
 		assert(configInfo.pipelineLayout != VK_NULL_HANDLE &&
 			"Cannot create graphics pipeline: no pipelineLayout provided in configInfo");
@@ -151,8 +152,8 @@ namespace vulkanium
 		std::cout << "Vertex Shader Code Size: " << vertCode.size() << std::endl; 
 		std::cout << "Fragment Shader Code Size: " << vertCode.size() << std::endl; 
 
-		CreateShaderModule(vertCode, &vertShaderModule);
-		CreateShaderModule(fragCode, &fragShaderModule);
+		createShaderModule(vertCode, &vertShaderModule);
+		createShaderModule(fragCode, &fragShaderModule);
 
 		// initialize shader-stage create info
 		VkPipelineShaderStageCreateInfo shaderStages[2];
@@ -176,12 +177,18 @@ namespace vulkanium
 		shaderStages[1].pSpecializationInfo = nullptr;
 
 
+		auto bindingDescriptions = VulkaniumModel::Vertex::getBindingDescriptions(); 
+		auto attributeDescriptions = VulkaniumModel::Vertex::getAttributeDescriptions();
+
+
+
+
 		VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
 		vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
-		vertexInputInfo.vertexAttributeDescriptionCount = 0; 
-		vertexInputInfo.vertexBindingDescriptionCount = 0; 
-		vertexInputInfo.pVertexAttributeDescriptions = nullptr; 
-		vertexInputInfo.pVertexBindingDescriptions = nullptr; 
+		vertexInputInfo.vertexAttributeDescriptionCount = static_cast<uint32_t>(attributeDescriptions.size()); 
+		vertexInputInfo.vertexBindingDescriptionCount = static_cast<uint32_t>(bindingDescriptions.size());
+		vertexInputInfo.pVertexAttributeDescriptions = attributeDescriptions.data();
+		vertexInputInfo.pVertexBindingDescriptions = bindingDescriptions.data(); 
 
 
 
@@ -215,7 +222,7 @@ namespace vulkanium
 
 
 	}
-	void VulkaniumPipeline::CreateShaderModule(const std::vector<char>& code, VkShaderModule* shaderModule)
+	void VulkaniumPipeline::createShaderModule(const std::vector<char>& code, VkShaderModule* shaderModule)
 	{
 		VkShaderModuleCreateInfo createInfo{}; 
 		createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO; 

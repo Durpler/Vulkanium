@@ -4,6 +4,7 @@
 
 FirstApp::FirstApp()
 {
+	loadModels(); 
 	createPipelineLayout(); 
 	createPipeline(); 
 	createCommandBuffers();
@@ -22,6 +23,19 @@ void FirstApp::run()
 		glfwPollEvents();
 		drawFrame();
 	}
+	vkDeviceWaitIdle(m_vkaniumDevice.device());
+}
+
+void FirstApp::loadModels()
+{
+	std::vector<VulkaniumModel::Vertex> vertices
+	{
+		{{0.0f, -0.5f}},
+		{{0.5f, 0.5f}},
+		{{-0.5f, 0.5f}}
+	}; 
+
+	m_vkaModel = std::make_unique<VulkaniumModel>(m_vkaniumDevice, vertices);
 }
 
 void FirstApp::createPipelineLayout()
@@ -99,7 +113,8 @@ void FirstApp::createCommandBuffers()
 		vkCmdBeginRenderPass(m_commandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
 		m_vkaniumPipeline->bind(m_commandBuffers[i]); 
-		vkCmdDraw(m_commandBuffers[i], 3, 1, 0, 0);
+		m_vkaModel->bind(m_commandBuffers[i]);
+		m_vkaModel->draw(m_commandBuffers[i]);
 
 		vkCmdEndRenderPass(m_commandBuffers[i]); 
 		if (vkEndCommandBuffer(m_commandBuffers[i]) != VK_SUCCESS)
